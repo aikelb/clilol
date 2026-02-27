@@ -27,7 +27,7 @@ const endpoint = "https://api.omg.lol"
 
 var (
 	addressFlag string
-	Version     = "1.1.6"
+	Version     = "1.1.8"
 	RootCmd     = &cobra.Command{
 		Version: Version,
 		Use:     "clilol",
