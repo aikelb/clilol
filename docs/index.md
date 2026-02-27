@@ -67,7 +67,7 @@ You can install clilol in any of these ways. (These are the only supported build
     };
     ```
 
-    Then add  `mcornick.packages.x86_64-linux.clilol` to `environment.systemPackages` in your NixOS configuration, or to `home.packages` in your Home Manager configuration. If you're not on a `x86_64-linux` system, use your platform type instead.
+    Then add  `aikelb.packages.x86_64-linux.clilol` to `environment.systemPackages` in your NixOS configuration, or to `home.packages` in your Home Manager configuration. If you're not on a `x86_64-linux` system, use your platform type instead.
 
     !!! Note
 
@@ -87,7 +87,7 @@ You can install clilol in any of these ways. (These are the only supported build
 
 === "Binaries and Linux packages"
 
-    I maintain binary releases on GitHub [here](https://github.com/mcornick/clilol/releases). Releases are built for macOS (universal), Linux (i386, amd64, arm64, and armv6) and Windows (i386, amd64). Linux packages are built in RPM, DEB, APK, and Arch Linux pkg.tar.zst formats.
+    I maintain binary releases on GitHub [here](https://github.com/aikelb/clilol/releases). Releases are built for macOS (universal), Linux (i386, amd64, arm64, and armv6) and Windows (i386, amd64). Linux packages are built in RPM, DEB, APK, and Arch Linux pkg.tar.zst formats.
 
     Binary checksums included on the release pages are signed with my [PGP key](https://github.com/aikelb.gpg).
 
@@ -138,7 +138,7 @@ The file should look like one of these, substituting your own details:
       "apikey": "0123456789abcdef0123456789abcdef"
     }
     ```
-A [JSON Schema](https://raw.githubusercontent.com/mcornick/clilol/main/docs/config.schema.json) for the configuration file is available, for editors that support it.
+A [JSON Schema](https://raw.githubusercontent.com/aikelb/clilol/main/docs/config.schema.json) for the configuration file is available, for editors that support it.
 
 !!! Note
 
@@ -215,7 +215,7 @@ SBOMs and SLSA provenance are generated for each release. You can use these with
 
 ```bash
 grype clilol_X.Y.Z_darwin_all.tar.gz.sbom
-grype ghcr.io/mcornick/clilol
+grype ghcr.io/aikelb/clilol
 ```
 
 ```bash
