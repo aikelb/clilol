@@ -20,11 +20,11 @@ import (
 )
 
 type updateDNSInput struct {
-	Type     string `json:"type"`
-	Name     string `json:"name"`
-	Data     string `json:"data"`
-	Priority int    `json:"priority"`
-	TTL      int    `json:"ttl"`
+	Type     string       `json:"type,omitempty"`
+	Name     string       `json:"name,omitempty"`
+	Content  string       `json:"content,omitempty"`
+	Priority *int         `json:"priority,omitempty"`
+	TTL      *json.Number `json:"ttl,omitempty"`
 }
 
 type updateDNSOutput struct {
@@ -62,7 +62,16 @@ var (
 		Long:  "Updates a DNS record.",
 		Args:  cobra.ExactArgs(4),
 		RunE: func(cmd *cobra.Command, args []string) error {
-			result, err := updateDNS(args[0], args[1], args[2], args[3], updateDNSPriority, updateDNSTTL)
+			var priority *int
+			var ttl *json.Number
+			if cmd.Flags().Changed("priority") {
+				priority = &updateDNSPriority
+			}
+			if cmd.Flags().Changed("ttl") {
+				t := json.Number(fmt.Sprintf("%d", updateDNSTTL))
+				ttl = &t
+			}
+			result, err := updateDNS(args[0], args[1], args[2], args[3], priority, ttl)
 			if err != nil {
 				return err
 			}
@@ -94,9 +103,15 @@ func init() {
 	updateCmd.AddCommand(updateDNSCmd)
 }
 
-func updateDNS(id string, name string, recordType string, data string, priority int, ttl int) (updateDNSOutput, error) {
+func updateDNS(id string, name string, recordType string, content string, priority *int, ttl *json.Number) (updateDNSOutput, error) {
 	var result updateDNSOutput
-	dns := updateDNSInput{strings.ToUpper(recordType), name, data, priority, ttl}
+	dns := updateDNSInput{
+		Type:     strings.ToUpper(recordType),
+		Name:     name,
+		Content:  content,
+		Priority: priority,
+		TTL:      ttl,
+	}
 	body, err := callAPIWithParams(
 		http.MethodPatch,
 		"/address/"+viper.GetString("address")+"/dns/"+id,

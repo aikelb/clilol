@@ -22,7 +22,7 @@ import (
 type createDNSInput struct {
 	Type     string `json:"type"`
 	Name     string `json:"name"`
-	Data     string `json:"data"`
+	Content  string `json:"content"`
 	Priority int    `json:"priority"`
 	TTL      int    `json:"ttl"`
 }
@@ -94,9 +94,9 @@ func init() {
 	createCmd.AddCommand(createDNSCmd)
 }
 
-func createDNS(name string, recordType string, data string, priority int, ttl int) (createDNSOutput, error) {
+func createDNS(name string, recordType string, content string, priority int, ttl int) (createDNSOutput, error) {
 	var result createDNSOutput
-	dns := createDNSInput{strings.ToUpper(recordType), name, data, priority, ttl}
+	dns := createDNSInput{strings.ToUpper(recordType), name, content, priority, ttl}
 	body, err := callAPIWithParams(
 		http.MethodPost,
 		"/address/"+viper.GetString("address")+"/dns",
