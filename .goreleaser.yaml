@@ -13,7 +13,7 @@ archives:
         goos: windows
 aurs:
   - description: A CLI for omg.lol
-    git_url: ssh://git@github.com/mcornick/clilol-aur.git
+    git_url: ssh://git@github.com/aikelb/clilol-aur.git
     homepage: https://clilol.readthedocs.io/
     license: MPL-2.0
     maintainers:
@@ -42,7 +42,7 @@ builds:
     flags:
       - -trimpath
     ldflags:
-      - -s -w -X github.com/mcornick/clilol/cmd.Version={{.Version}}
+      - -s -w -X github.com/aikelb/clilol/cmd.Version={{.Version}}
     mod_timestamp: "{{ .CommitTimestamp }}"
     targets:
       - go_first_class
@@ -80,7 +80,7 @@ homebrew_casks:
       - manpages/clilol.1
     repository:
       name: homebrew-tap
-      owner: mcornick
+      owner: aikelb
     skip_upload: auto
 kos:
   - bare: true
@@ -90,7 +90,7 @@ kos:
     labels:
       io.artifacthub.package.license: MPL-2.0
       io.artifacthub.package.maintainers: '[{"name":"M Cornick","email":"mcornick@mcornick.com"}]'
-      io.artifacthub.package.readme-url: https://github.com/mcornick/clilol/tree/main/item/README.md
+      io.artifacthub.package.readme-url: https://github.com/aikelb/clilol/tree/main/item/README.md
       org.opencontainers.image.description: A CLI for omg.lol
       org.opencontainers.image.name: "{{ .ProjectName }}"
       org.opencontainers.image.revision: "{{ .FullCommit }}"
@@ -100,7 +100,7 @@ kos:
       - linux/amd64
       - linux/arm64
     repositories:
-      - ghcr.io/mcornick/clilol
+      - ghcr.io/aikelb/clilol
     tags:
       - latest
       - "{{ .Tag }}"
@@ -149,7 +149,7 @@ nix:
     license: mpl20
     repository:
       name: nixpkgs
-      owner: mcornick
+      owner: aikelb
     skip_upload: auto
 notarize:
   macos:
@@ -171,7 +171,7 @@ publishers:
 release:
   github:
     name: clilol
-    owner: mcornick
+    owner: aikelb
   prerelease: auto
 sboms:
   - artifacts: archive
@@ -181,7 +181,7 @@ scoops:
     license: MPL-2.0
     repository:
       name: scoop-bucket
-      owner: mcornick
+      owner: aikelb
     skip_upload: auto
 signs:
   - artifacts: checksum

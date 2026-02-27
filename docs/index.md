@@ -16,8 +16,8 @@ You can install clilol in any of these ways. (These are the only supported build
 === "Homebrew"
 
     ```bash
-    brew tap mcornick/tap https://github.com/mcornick/homebrew-tap.git
-    brew install --cask mcornick/tap/clilol
+    brew tap aikelb/tap https://github.com/aikelb/homebrew-tap.git
+    brew install --cask aikelb/tap/clilol
     ```
 
     !!! Note
@@ -27,17 +27,17 @@ You can install clilol in any of these ways. (These are the only supported build
 === "Scoop"
 
     ```powershell
-    scoop bucket add mcornick https://github.com/mcornick/scoop-bucket.git
-    scoop install mcornick/clilol
+    scoop bucket add aikelb https://github.com/aikelb/scoop-bucket.git
+    scoop install aikelb/clilol
     ```
 
 === "YUM Repository"
 
     ```
-    # /etc/yum.repos.d/mcornick.repo
-    [mcornick]
-    name=mcornick yum repo
-    baseurl=https://yum.fury.io/mcornick/
+    # /etc/yum.repos.d/aikelb.repo
+    [aikelb]
+    name=aikelb yum repo
+    baseurl=https://yum.fury.io/aikelb/
     enabled=1
     gpgcheck=0
     ```
@@ -45,14 +45,14 @@ You can install clilol in any of these ways. (These are the only supported build
 === "APT Repository"
 
     ```
-    # /etc/apt/sources.list.d/mcornick.list
-    deb [trusted=yes] https://apt.fury.io/mcornick/ /
+    # /etc/apt/sources.list.d/aikelb.list
+    deb [trusted=yes] https://apt.fury.io/aikelb/ /
     ```
 
 === "Arch User Repository"
 
     ```
-    git clone https://github.com/mcornick/clilol-aur.git
+    git clone https://github.com/aikelb/clilol-aur.git
     cd clilol-aur
     makepkg -i
     ```
@@ -61,8 +61,8 @@ You can install clilol in any of these ways. (These are the only supported build
 
     ```
     # flake.nix
-    inputs.mcornick = {
-      url = "github:mcornick/nixpkgs";
+    inputs.aikelb = {
+      url = "github:aikelb/nixpkgs";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     ```
@@ -76,26 +76,26 @@ You can install clilol in any of these ways. (These are the only supported build
 === "Container Images"
 
     ```bash
-    docker run --rm ghcr.io/mcornick/clilol
+    docker run --rm ghcr.io/aikelb/clilol
     ```
 
     Container manifests are signed with [Cosign](https://docs.sigstore.dev/cosign/overview/). Ephemeral keys from GitHub are used, so you'll need to specify a certificate identity that matches the tag you're trying to verify.
 
     ```bash
-    cosign verify --certificate-identity=https://github.com/mcornick/clilol/.github/workflows/goreleaser.yaml@refs/tags/vX.Y.Z --certificate-oidc-issuer=https://token.actions.githubusercontent.com ghcr.io/mcornick/clilol:vX.Y.Z
+    cosign verify --certificate-identity=https://github.com/aikelb/clilol/.github/workflows/goreleaser.yaml@refs/tags/vX.Y.Z --certificate-oidc-issuer=https://token.actions.githubusercontent.com ghcr.io/aikelb/clilol:vX.Y.Z
     ```
 
 === "Binaries and Linux packages"
 
     I maintain binary releases on GitHub [here](https://github.com/mcornick/clilol/releases). Releases are built for macOS (universal), Linux (i386, amd64, arm64, and armv6) and Windows (i386, amd64). Linux packages are built in RPM, DEB, APK, and Arch Linux pkg.tar.zst formats.
 
-    Binary checksums included on the release pages are signed with my [PGP key](https://github.com/mcornick.gpg).
+    Binary checksums included on the release pages are signed with my [PGP key](https://github.com/aikelb.gpg).
 
     macOS binaries are notarized by Apple, and you should not see any warnings about "unidentified developers." If you do, something is wrong, and I'd appreciate hearing about it, thanks!
 
 === "From source"
 
-    The usual: `go install github.com/mcornick/clilol@latest`
+    The usual: `go install github.com/aikelb/clilol@latest`
 
     While I do not build or test for platforms other than the ones listed above, clilol _should_ still build and run on any platform supported by Go, and if you find that it does not, feel free to file an issue, and I'll take a look.
 
@@ -159,9 +159,9 @@ export CLILOL_APIKEY="0123456789abcdef0123456789abcdef"
 Environment variables are the easiest way to pass configuration when running the container images:
 
 ```bash
-docker run --rm -ti --env CLILOL_ADDRESS=tomservo --env CLILOL_APIKEY=0123456789abcdef0123456789abcdef --env CLILOL_EMAIL=tomservo@gizmonics.invalid ghcr.io/mcornick/clilol ...
+docker run --rm -ti --env CLILOL_ADDRESS=tomservo --env CLILOL_APIKEY=0123456789abcdef0123456789abcdef --env CLILOL_EMAIL=tomservo@gizmonics.invalid ghcr.io/aikelb/clilol ...
 # or put the configuration in a dotenv file:
-docker run --rm -ti --env-file .env ghcr.io/mcornick/clilol ...
+docker run --rm -ti --env-file .env ghcr.io/aikelb/clilol ...
 ```
 
 Environment variables take precedence over any configuration file.
@@ -219,11 +219,11 @@ grype ghcr.io/mcornick/clilol
 ```
 
 ```bash
-slsa-verifier verify-artifact clilol_X.Y.Z_darwin_all.tar.gz --provenance-path multiple.intoto.jsonl --source-uri github.com/mcornick/clilol --source-tag vX.Y.Z
-slsa-verifier verify-image ghcr.io/mcornick/clilol:vX.Y.Z@sha256:xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx --source-uri github.com/mcornick/clilol --source-tag vX.Y.Z
+slsa-verifier verify-artifact clilol_X.Y.Z_darwin_all.tar.gz --provenance-path multiple.intoto.jsonl --source-uri github.com/aikelb/clilol --source-tag vX.Y.Z
+slsa-verifier verify-image ghcr.io/aikelb/clilol:vX.Y.Z@sha256:xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx --source-uri github.com/aikelb/clilol --source-tag vX.Y.Z
 ```
 
-To verify signatures on git commits to clilol, you might need [my SSH public key](https://github.com/mcornick.keys) or [my PGP public key](https://github.com/mcornick.gpg).
+To verify signatures on git commits to clilol, you might need [my SSH public key](https://github.com/aikelb.keys) or [my PGP public key](https://github.com/aikelb.gpg).
 
 Thanks to the following people for helping to improve clilol:
 

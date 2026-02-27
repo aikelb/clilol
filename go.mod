@@ -1,4 +1,4 @@
-module github.com/mcornick/clilol
+module github.com/aikelb/clilol
 
 go 1.24.0
 

@@ -13,7 +13,7 @@ import (
 	"os"
 
 	"github.com/charmbracelet/fang"
-	"github.com/mcornick/clilol/cmd"
+	"github.com/aikelb/clilol/cmd"
 )
 
 func main() {

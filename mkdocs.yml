@@ -3,7 +3,7 @@ copyright: Copyright &copy; 2024 Mark Cornick
 extra:
   social:
     - icon: fontawesome/brands/github
-      link: https://github.com/mcornick/clilol
+      link: https://github.com/aikelb/clilol
     - icon: fontawesome/brands/mastodon
       link: https://social.lol/@mcornick
     - icon: fontawesome/brands/bluesky
@@ -91,8 +91,8 @@ nav:
 plugins:
   - blog
   - search
-repo_name: mcornick/clilol
-repo_url: https://github.com/mcornick/clilol
+repo_name: aikelb/clilol
+repo_url: https://github.com/aikelb/clilol
 site_author: M Cornick
 site_description: a CLI for omg.lol
 site_name: clilol, a CLI for omg.lol
