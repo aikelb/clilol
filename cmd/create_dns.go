@@ -20,11 +20,11 @@ import (
 )
 
 type createDNSInput struct {
-	Type     string `json:"type"`
-	Name     string `json:"name"`
-	Content  string `json:"content"`
-	Priority int    `json:"priority"`
-	TTL      int    `json:"ttl"`
+	Type     string       `json:"type,omitempty"`
+	Name     string       `json:"name,omitempty"`
+	Data     string       `json:"data,omitempty"`
+	Priority *int         `json:"priority,omitempty"`
+	TTL      *json.Number `json:"ttl,omitempty"`
 }
 
 type createDNSOutput struct {
@@ -40,7 +40,7 @@ type createDNSOutput struct {
 		} `json:"data_sent"`
 		ResponseReceived struct {
 			Data struct {
-				ID        json.Number `json:"id"`
+				ID        FlexID      `json:"id"`
 				Name      string      `json:"name"`
 				Content   string      `json:"content"`
 				TTL       json.Number `json:"ttl"`
@@ -62,7 +62,16 @@ var (
 		Long:  "Creates a DNS record.",
 		Args:  cobra.ExactArgs(3),
 		RunE: func(cmd *cobra.Command, args []string) error {
-			result, err := createDNS(args[0], args[1], args[2], createDNSPriority, createDNSTTL)
+			var priority *int
+			var ttl *json.Number
+			if cmd.Flags().Changed("priority") {
+				priority = &createDNSPriority
+			}
+			if cmd.Flags().Changed("ttl") {
+				t := json.Number(fmt.Sprintf("%d", createDNSTTL))
+				ttl = &t
+			}
+			result, err := createDNS(args[0], args[1], args[2], priority, ttl)
 			if err != nil {
 				return err
 			}
@@ -94,9 +103,15 @@ func init() {
 	createCmd.AddCommand(createDNSCmd)
 }
 
-func createDNS(name string, recordType string, content string, priority int, ttl int) (createDNSOutput, error) {
+func createDNS(name string, recordType string, data string, priority *int, ttl *json.Number) (createDNSOutput, error) {
 	var result createDNSOutput
-	dns := createDNSInput{strings.ToUpper(recordType), name, content, priority, ttl}
+	dns := createDNSInput{
+		Type:     strings.ToUpper(recordType),
+		Name:     name,
+		Data:     data,
+		Priority: priority,
+		TTL:      ttl,
+	}
 	body, err := callAPIWithParams(
 		http.MethodPost,
 		"/address/"+viper.GetString("address")+"/dns",

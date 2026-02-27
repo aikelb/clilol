@@ -23,7 +23,7 @@ type getDNSOutput struct {
 	Response struct {
 		Message string `json:"message"`
 		DNS     struct {
-			ID        json.Number `json:"id"`
+			ID        FlexID      `json:"id"`
 			Type      string      `json:"type"`
 			Name      string      `json:"name"`
 			Data      string      `json:"data"`

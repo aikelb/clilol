@@ -20,7 +20,9 @@ func Test_crudDNS(t *testing.T) {
 	expectedName := "localhost." + os.Getenv("CLILOL_ADDRESS")
 	expectedType := "A"
 	expectedData := "127.0.0.1"
-	createResult, err := createDNS("localhost", expectedType, expectedData, 0, 3600)
+	var pZero int = 0
+	var t3600 json.Number = "3600"
+	createResult, err := createDNS("localhost", expectedType, expectedData, &pZero, &t3600)
 	if err != nil {
 		t.Errorf("createDNS() error = %v", err)
 		return
@@ -49,13 +51,13 @@ func Test_crudDNS(t *testing.T) {
 		t.Errorf("listDNS() = %v, want %v", expectedNames, expectedName)
 	}
 
-	_, err = getDNS(expectedName, expectedType, expectedData, 0, 3600)
+	_, err = getDNS(expectedName, expectedType, expectedData, &pZero, &t3600)
 	if err != nil {
 		t.Errorf("getDNS() error = %v", err)
 		return
 	}
 
-	_, err = getDNS(expectedName, strings.ToLower(expectedType), expectedData, 0, 3600)
+	_, err = getDNS(expectedName, strings.ToLower(expectedType), expectedData, &pZero, &t3600)
 	if err != nil {
 		t.Errorf("getDNS() error = %v", err)
 		return
@@ -88,7 +90,7 @@ func Test_crudDNS(t *testing.T) {
 		t.Errorf("deleteDNS() = %v , want %v", deleteResult.Response.Message, expectedMessage)
 	}
 
-	createResult, err = createDNS("lowercase-a", "a", "127.0.0.1", 0, 3600)
+	createResult, err = createDNS("lowercase-a", "a", "127.0.0.1", &pZero, &t3600)
 	if err != nil {
 		t.Errorf("createDNS() error = %v", err)
 		return

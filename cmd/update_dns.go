@@ -22,7 +22,7 @@ import (
 type updateDNSInput struct {
 	Type     string       `json:"type,omitempty"`
 	Name     string       `json:"name,omitempty"`
-	Content  string       `json:"content,omitempty"`
+	Data     string       `json:"data,omitempty"`
 	Priority *int         `json:"priority,omitempty"`
 	TTL      *json.Number `json:"ttl,omitempty"`
 }
@@ -40,7 +40,7 @@ type updateDNSOutput struct {
 		} `json:"data_sent"`
 		ResponseReceived struct {
 			Data struct {
-				ID        json.Number `json:"id"`
+				ID        FlexID      `json:"id"`
 				Name      string      `json:"name"`
 				Content   string      `json:"content"`
 				TTL       json.Number `json:"ttl"`
@@ -103,12 +103,12 @@ func init() {
 	updateCmd.AddCommand(updateDNSCmd)
 }
 
-func updateDNS(id string, name string, recordType string, content string, priority *int, ttl *json.Number) (updateDNSOutput, error) {
+func updateDNS(id string, name string, recordType string, data string, priority *int, ttl *json.Number) (updateDNSOutput, error) {
 	var result updateDNSOutput
 	dns := updateDNSInput{
 		Type:     strings.ToUpper(recordType),
 		Name:     name,
-		Content:  content,
+		Data:     data,
 		Priority: priority,
 		TTL:      ttl,
 	}
