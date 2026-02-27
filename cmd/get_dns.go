@@ -9,6 +9,7 @@
 package cmd
 
 import (
+	"encoding/json"
 	"errors"
 	"fmt"
 	"strings"
@@ -22,14 +23,14 @@ type getDNSOutput struct {
 	Response struct {
 		Message string `json:"message"`
 		DNS     struct {
-			ID        int       `json:"id"`
-			Type      string    `json:"type"`
-			Name      string    `json:"name"`
-			Data      string    `json:"data"`
-			Priority  int       `json:"priority"`
-			TTL       int       `json:"ttl"`
-			CreatedAt time.Time `json:"created_at"`
-			UpdatedAt time.Time `json:"updated_at"`
+			ID        json.Number `json:"id"`
+			Type      string      `json:"type"`
+			Name      string      `json:"name"`
+			Data      string      `json:"data"`
+			Priority  *int        `json:"priority"`
+			TTL       json.Number `json:"ttl"`
+			CreatedAt time.Time   `json:"created_at"`
+			UpdatedAt time.Time   `json:"updated_at"`
 		} `json:"dns"`
 	} `json:"response"`
 }
@@ -54,7 +55,7 @@ var (
 				return err
 			}
 			fmt.Printf(
-				"%s %s %s ; ID: %d\n",
+				"%s %s %s ; ID: %v\n",
 				record.Response.DNS.Name,
 				record.Response.DNS.Type,
 				record.Response.DNS.Data,
@@ -87,12 +88,13 @@ func getDNS(name string, recordType string, data string, priority int, ttl int) 
 	allDNS, _ := listDNS()
 	var foundDNS getDNSOutput
 	for _, record := range allDNS.Response.DNS {
-		if record.Type == strings.ToUpper(recordType) && record.Name == name && record.Data == data && record.Priority == priority && record.TTL == ttl {
+		recordTTL, _ := record.TTL.Int64()
+		if record.Type == strings.ToUpper(recordType) && record.Name == name && record.Data == data && (record.Priority != nil && *record.Priority == priority) && int(recordTTL) == ttl {
 			foundDNS.Response.Message = allDNS.Response.Message
 			foundDNS.Response.DNS = record
 		}
 	}
-	if foundDNS.Response.DNS.ID != 0 {
+	if foundDNS.Response.DNS.ID.String() != "" {
 		return foundDNS, nil
 	} else {
 		return foundDNS, errors.New("couldn't find a matching record")

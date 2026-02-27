@@ -32,22 +32,22 @@ type createDNSOutput struct {
 	Response struct {
 		Message  string `json:"message"`
 		DataSent struct {
-			Type     string `json:"type"`
-			Priority int    `json:"priority"`
-			TTL      int    `json:"ttl"`
-			Name     string `json:"name"`
-			Content  string `json:"content"`
+			Type     string      `json:"type"`
+			Priority *int        `json:"priority"`
+			TTL      json.Number `json:"ttl"`
+			Name     string      `json:"name"`
+			Content  string      `json:"content"`
 		} `json:"data_sent"`
 		ResponseReceived struct {
 			Data struct {
-				ID        int       `json:"id"`
-				Name      string    `json:"name"`
-				Content   string    `json:"content"`
-				TTL       int       `json:"ttl"`
-				Priority  int       `json:"priority"`
-				Type      string    `json:"type"`
-				CreatedAt time.Time `json:"created_at"`
-				UpdatedAt time.Time `json:"updated_at"`
+				ID        json.Number `json:"id"`
+				Name      string      `json:"name"`
+				Content   string      `json:"content"`
+				TTL       json.Number `json:"ttl"`
+				Priority  *int        `json:"priority"`
+				Type      string      `json:"type"`
+				CreatedAt time.Time   `json:"created_at"`
+				UpdatedAt time.Time   `json:"updated_at"`
 			} `json:"data"`
 		} `json:"response_received"`
 	} `json:"response"`

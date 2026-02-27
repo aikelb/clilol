@@ -23,14 +23,14 @@ type listDNSOutput struct {
 	Response struct {
 		Message string `json:"message"`
 		DNS     []struct {
-			ID        int       `json:"id"`
-			Type      string    `json:"type"`
-			Name      string    `json:"name"`
-			Data      string    `json:"data"`
-			Priority  int       `json:"priority"`
-			TTL       int       `json:"ttl"`
-			CreatedAt time.Time `json:"created_at"`
-			UpdatedAt time.Time `json:"updated_at"`
+			ID        json.Number `json:"id"`
+			Type      string      `json:"type"`
+			Name      string      `json:"name"`
+			Data      string      `json:"data"`
+			Priority  *int        `json:"priority"`
+			TTL       json.Number `json:"ttl"`
+			CreatedAt time.Time   `json:"created_at"`
+			UpdatedAt time.Time   `json:"updated_at"`
 		} `json:"dns"`
 	} `json:"response"`
 }
@@ -48,7 +48,7 @@ var listDNSCmd = &cobra.Command{
 		if result.Request.Success {
 			for _, record := range result.Response.DNS {
 				fmt.Printf(
-					"%s %s %s ; ID: %d\n",
+					"%s %s %s ; ID: %v\n",
 					record.Name,
 					record.Type,
 					record.Data,

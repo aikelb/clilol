@@ -10,7 +10,6 @@ package cmd
 
 import (
 	"os"
-	"strconv"
 	"strings"
 	"testing"
 
@@ -35,7 +34,7 @@ func Test_crudDNS(t *testing.T) {
 	if createResult.Response.ResponseReceived.Data.Content != expectedData {
 		t.Errorf("createDNS() = %v, want %v", createResult.Response.ResponseReceived.Data.Content, expectedData)
 	}
-	recordID := strconv.Itoa(createResult.Response.ResponseReceived.Data.ID)
+	recordID := createResult.Response.ResponseReceived.Data.ID.String()
 
 	listResult, err := listDNS()
 	if err != nil {
@@ -97,7 +96,7 @@ func Test_crudDNS(t *testing.T) {
 	if createResult.Response.ResponseReceived.Data.Type != "A" {
 		t.Errorf("createDNS() = %v, want %v", createResult.Response.ResponseReceived.Data.Type, "A")
 	}
-	recordID = strconv.Itoa(createResult.Response.ResponseReceived.Data.ID)
+	recordID = createResult.Response.ResponseReceived.Data.ID.String()
 	deleteResult, err = deleteDNS(recordID)
 	if err != nil {
 		t.Errorf("deleteDNS() error = %v", err)
