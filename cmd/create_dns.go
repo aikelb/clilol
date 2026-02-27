@@ -13,7 +13,6 @@ import (
 	"fmt"
 	"net/http"
 	"strings"
-	"time"
 
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
@@ -46,8 +45,8 @@ type createDNSOutput struct {
 				TTL       json.Number `json:"ttl"`
 				Priority  *int        `json:"priority"`
 				Type      string      `json:"type"`
-				CreatedAt time.Time   `json:"created_at"`
-				UpdatedAt time.Time   `json:"updated_at"`
+				CreatedAt FlexTime    `json:"created_at"`
+				UpdatedAt FlexTime    `json:"updated_at"`
 			} `json:"data"`
 		} `json:"response_received"`
 	} `json:"response"`

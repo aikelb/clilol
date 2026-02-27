@@ -13,7 +13,6 @@ import (
 	"errors"
 	"fmt"
 	"strings"
-	"time"
 
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
@@ -29,8 +28,8 @@ type getDNSOutput struct {
 			Data      string      `json:"data"`
 			Priority  *int        `json:"priority"`
 			TTL       json.Number `json:"ttl"`
-			CreatedAt time.Time   `json:"created_at"`
-			UpdatedAt time.Time   `json:"updated_at"`
+			CreatedAt FlexTime    `json:"created_at"`
+			UpdatedAt FlexTime    `json:"updated_at"`
 		} `json:"dns"`
 	} `json:"response"`
 }
